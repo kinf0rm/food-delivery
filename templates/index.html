@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}Главная - Доставка еды{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-12 text-center">
+        <h1 class="display-4">Добро пожаловать в FoodDelivery!</h1>
+        <p class="lead">Вкусная еда с доставкой на дом</p>
+    </div>
+</div>
+
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    {% for food in foods %}
+        <div class="col">
+            <div class="card h-100 shadow-sm">
+                <img src="{{ url_for('static', filename='images/' + food.image_url) if food.image_url else 'https://via.placeholder.com/300x200?text=Food' }}" 
+                     class="card-img-top" alt="{{ food.name }}" style="height: 200px; object-fit: cover;">
+                <div class="card-body">
+                    <h5 class="card-title">{{ food.name }}</h5>
+                    <p class="card-text text-muted">{{ food.description }}</p>
+                    <p class="card-text">
+                        <span class="badge bg-secondary">{{ food.category }}</span>
+                    </p>
+                    <p class="card-text">
+                        <strong>{{ food.price }} ₽</strong>
+                    </p>
+                </div>
+                <div class="card-footer bg-transparent">
+                    {% if current_user.is_authenticated %}
+                        <a href="{{ url_for('add_to_cart', food_id=food.id) }}" class="btn btn-success w-100">
+                            <i class="bi bi-cart-plus"></i> В корзину
+                        </a>
+                    {% else %}
+                        <a href="{{ url_for('login') }}" class="btn btn-primary w-100">
+                            Войдите, чтобы заказать
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}
