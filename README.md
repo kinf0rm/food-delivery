@@ -14,5 +14,5 @@
 
 1. Клонируйте репозиторий:
 ```bash
-git clone https://github.com/ваш-username/food-delivery.git
+git clone https://github.com/kinf0rm/food-delivery.git
 cd food-delivery
